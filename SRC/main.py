@@ -1,5 +1,7 @@
 import main_ui
 import sqlite3
+from os import stat
+from pwd import getpwuid
 
 #global variables
 FEILDS_LIST = ['discipline','size','project','seqno','ver','desc','auth']
@@ -38,3 +40,5 @@ def populate_form():
 def add_tracked_file():
     print('new file tracked')
 
+def get_author(filename):
+   return getpwuid(stat(filename).st_uid).pw_name
