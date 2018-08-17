@@ -15,9 +15,9 @@
 
 #api method
 import os
-#import win32
+import main as main
 import win32file # need to check why reference not found - may need to be elvated in subdiectory
-import win32com #should be con reference not found
+import win32con #should be con reference not found
 
 ACTIONS = {
   1 : "Created",
@@ -29,7 +29,7 @@ ACTIONS = {
 # Thanks to Claudio Grondi for the correct set of numbers
 FILE_LIST_DIRECTORY = 0x0001
 
-path_to_watch = "."
+path_to_watch = "C:/Users/tomdu/Desktop"
 hDir = win32file.CreateFile (
   path_to_watch,
   FILE_LIST_DIRECTORY,
@@ -66,4 +66,10 @@ while 1:
   )
   for action, file in results:
     full_filename = os.path.join (path_to_watch, file)
-    print full_filename, ACTIONS.get (action, "Unknown")
+    print (full_filename, ACTIONS.get (action, "Unknown"))
+    if ACTIONS.get(action, "Unknown") == "Created":
+      main.add_to_regsiter(full_filename)
+    elif ACTIONS.get(action,"Unknown") == "Deleted":
+      main.remove_from_register(full_filename)
+    elif ACTIONS.get(action,"Unknown") == "Updated":
+      main.log_update(full_filename,datetime,editor)
