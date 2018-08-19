@@ -2,7 +2,6 @@ import time
 import datetime
 import pywintypes
 import os
-import main as main
 import win32file
 import win32con
 import win32security
@@ -40,6 +39,20 @@ ACTIONS = {
 FILE_LIST_DIRECTORY = 0x0001
 
 path_to_watch = "C:/Users/tomdu/Desktop"
+
+
+def add_to_regsiter(file):
+  print('file added to register')
+
+
+def remove_from_register(file):
+  print('file removed from register')
+
+
+def log_update(file, datetime, editor):
+  print("update logged")
+
+
 def start_monitor():
   hDir = win32file.CreateFile (
     path_to_watch,
@@ -80,9 +93,9 @@ def start_monitor():
           full_filename = os.path.join (path_to_watch, file)
           print (full_filename, ACTIONS.get(action, "Unknown"))
           if ACTIONS.get(action, "Unknown") == "Created":
-              main.add_to_regsiter(full_filename)
+              add_to_regsiter(full_filename)
           elif ACTIONS.get(action, "Unknown") == "Deleted":
-              main.remove_from_register(full_filename)
+              remove_from_register(full_filename)
           elif ACTIONS.get(action, "Unknown") == "Updated":
               print(os.stat(full_filename).st_atime)
-              main.log_update(full_filename, get_time(), get_user(full_filename))
+              log_update(full_filename, get_time(), get_user(full_filename))

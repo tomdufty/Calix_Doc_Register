@@ -65,18 +65,6 @@ def populate_form():
 def add_tracked_file():
     print('new file tracked')
 
-def get_author(filename):
-   return getpwuid(stat(filename).st_uid).pw_name
-
-def add_to_regsiter(file):
-    print('file added to register')
-
-def remove_from_register(file):
-    print('file removed from register')
-
-def log_update(file,datetime,editor):
-    print("update logged")
-
 
 if __name__ == "__main__":
     # run main code
