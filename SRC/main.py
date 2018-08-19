@@ -1,12 +1,14 @@
 import main_ui
 import sqlite3 as db
 from os import stat
-from pwd import getpwuid
-import file # TODO not correct import find correct name for import
+import sys
+#from pwd import getpwuid
+from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
 
 #global variables
 FEILDS_LIST = ['discipline','size','project','seqno','ver','desc','auth']
-DISCIPLINE_CODES = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z']
+DISCIPLINE_CODES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U',
+                    'V', 'W', 'X', 'Y', 'Z']
 DISCIPLINE_LIST = ['Architechtural','Process','Civil','Engineering Administration','Electrical','Finance/Accounting',
                    'General','Health, Safety and Environmental','Instrumentation and Control', 'Building', 'Manuals',
                    'Mechanical','Procurement','Piping','Quality Assurance/Control','MDR Documentation','Structrual',
@@ -20,17 +22,14 @@ tracked_dir_list = []
 #open trackfile in install directory
 def read_trackfile():
     print('reading trackfile')
-    trackfile = file.open(trackfile_loc,r)
+    trackfile = db.connect(trackfile_loc)
+    query = 'SELECT * FROM DIRECTORY_LIST'
+    result = trackfile.execute(query).fetchall()
     for i in trackfile:
-        dir = readline(i)  #not correct get file read set correctly
-        tracked_dir_list.add(dir)
+        tracked_dir_list.append()
 
 def write_trackfile():
     print('writing trackfile')
-    trackfile = file.open(trackfile_loc,w)
-    for i in tracked_dir_list:
-        trackfile.write(i)
-
 
 #open sqlite and read document register
 def read_doc_register(tracked_dir):
@@ -83,3 +82,7 @@ def log_update(file,datetime,editor):
 
 if __name__ == "__main__":
     # run main code
+    app = QtWidgets.QApplication(sys.argv)
+    mainWin = Ui_MainWindow()
+    mainWin.show()
+    sys.exit(app.exec_())
