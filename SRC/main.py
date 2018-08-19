@@ -1,8 +1,7 @@
-import main_ui
 import sqlite3 as db
 from os import stat
 import sys
-#from pwd import getpwuid
+from main_ui import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
 
 #global variables
@@ -63,7 +62,6 @@ def populate_tree():
 def populate_form():
     print('popoulating form')
 
-
 def add_tracked_file():
     print('new file tracked')
 
@@ -83,6 +81,8 @@ def log_update(file,datetime,editor):
 if __name__ == "__main__":
     # run main code
     app = QtWidgets.QApplication(sys.argv)
-    mainWin = Ui_MainWindow()
-    mainWin.show()
+    ex = Ui_MainWindow()
+    w = QtWidgets.QMainWindow()
+    ex.setupUi(w)
+    w.show()
     sys.exit(app.exec_())
