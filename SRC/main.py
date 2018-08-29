@@ -15,7 +15,7 @@ DISCIPLINE_LIST = ['Architechtural','Process','Civil','Engineering Administratio
                    '','','Vendor','','Client','','']
 
 #main variables
-trackfile_loc = 'C/Users/HP/AppData/Local/CDM'
+trackfile_loc = 'C:\\Users\\HP\\AppData\\Local\\CDM\\'
 tracked_dir_list = []
 
 
@@ -39,6 +39,7 @@ class CDMMainWindow(QtWidgets.QMainWindow):
     def updateFile(self):
         #open dialogue box -confrim overwriting of file
         print("renaming file")
+        create_doc_register(trackfile_loc)
 
 ### this section defines general functions
 
@@ -71,13 +72,22 @@ def read_doc_register(tracked_dir):
     connection.close()
 
 def create_doc_register(dir):
-    print('new document register created')
-    connection = db.connect(dir)
-    create_table_query = 'CREATE TABLE RESGISTER'
-    create_field_query = 'WITH RESISTER ADD %,%,%,%,%,%,%,%,%,%,%' # incorrect syntax to be fixed!
-    connection.execute(create_table_query)
-    connection.execute(create_field_query,FEILDS_LIST)
-    connection.close()
+    registername = 'CDRegistry.db'
+    try:
+        connection = db.connect(dir +registername)
+        print("connected succefully...")
+        create_TRACKLIST_query = 'CREATE TABLE TRACKLIST(ID UNIQUE,PATH)'
+        create_register_query = 'CREATE TABLE REGISTER(ID UNIQUE,PATH)'
+        create_log_query = 'CREATE TABLE LOG(ID UNIQUE,PATH)'
+        create_field_query = 'WITH RESISTER ADD %,%,%,%,%,%,%,%,%,%,%' # incorrect syntax to be fixed!
+        connection.execute(create_TRACKLIST_query)
+        connection.execute(create_register_query)
+        connection.execute(create_log_query)
+        #connection.execute(create_field_query,FEILDS_LIST)
+        connection.close()
+        print('new document register created')
+    except:
+        print("failed... sqlite probably")
 
 # prepoluate tree
 def populate_tree():
