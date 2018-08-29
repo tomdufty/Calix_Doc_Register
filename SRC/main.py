@@ -4,6 +4,7 @@ import sys
 from main_ui import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
 
+
 #global variables
 FEILDS_LIST = ['discipline','size','project','seqno','ver','desc','auth']
 DISCIPLINE_CODES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U',
@@ -14,9 +15,32 @@ DISCIPLINE_LIST = ['Architechtural','Process','Civil','Engineering Administratio
                    '','','Vendor','','Client','','']
 
 #main variables
-trackfile_loc = 'C:/Programfiles/XXXXX'
+trackfile_loc = 'C/Users/HP/AppData/Local/CDM'
 tracked_dir_list = []
 
+
+#define overwriting class for main window - inherits QTMain window
+class CDMMainWindow(QtWidgets.QMainWindow):
+    def __init__(self, *args):
+        QtWidgets.QMainWindow.__init__(self, *args)
+
+    def projectChanged(self):
+        print("Received")
+
+    def addProject(self):
+
+        project_path = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        tracked_dir_list.append(project_path)
+        print("project added")
+
+    def projectChanged(self):
+        populate_form()
+
+    def updateFile(self):
+        #open dialogue box -confrim overwriting of file
+        print("renaming file")
+
+### this section defines general functions
 
 #open trackfile in install directory
 def read_trackfile():
@@ -62,6 +86,7 @@ def populate_tree():
 def populate_form():
     print('popoulating form')
 
+
 def add_tracked_file():
     print('new file tracked')
 
@@ -70,7 +95,7 @@ if __name__ == "__main__":
     # run main code
     app = QtWidgets.QApplication(sys.argv)
     ex = Ui_MainWindow()
-    w = QtWidgets.QMainWindow()
+    w = CDMMainWindow()
     ex.setupUi(w)
     w.show()
     sys.exit(app.exec_())

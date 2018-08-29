@@ -50,7 +50,7 @@
    <widget class="QPushButton" name="newTrackButton">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>420</x>
       <y>20</y>
       <width>75</width>
       <height>23</height>
@@ -208,6 +208,19 @@
      <string>Size</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>280</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Update Details</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -218,9 +231,70 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+   </widget>
+   <addaction name="menuMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>trackListCombo</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>projectChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>552</x>
+     <y>441</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newTrackButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>addProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>447</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>536</x>
+     <y>435</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>updateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>320</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>491</x>
+     <y>455</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>projectChanged()</slot>
+  <slot>addProject()</slot>
+  <slot>fileSelected()</slot>
+  <slot>updateFile()</slot>
+ </slots>
 </ui>
